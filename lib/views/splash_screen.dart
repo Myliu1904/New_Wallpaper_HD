@@ -2,6 +2,7 @@ import 'package:animated_splash/animated_splash.dart';
 import 'package:flutter/material.dart';
 import 'package:WallpaperHD/views/home_page.dart';
 
+
 class SplashScreenApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

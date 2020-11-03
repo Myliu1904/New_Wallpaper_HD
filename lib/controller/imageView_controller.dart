@@ -9,7 +9,6 @@ import 'package:random_string/random_string.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:WallpaperHD/utils/constants.dart';
 
-
 class ImageViewController extends GetxController {
   String _imageUrl;
   String get imageUrl => _imageUrl;
@@ -62,7 +61,7 @@ class ImageViewController extends GetxController {
   }
 
   _askPermission() async {
-    if (Platform.isIOS) {
+    if (Platform.isAndroid) {
       await PermissionHandler().requestPermissions([PermissionGroup.photos]);
     } else {
       var status = (await PermissionHandler()
