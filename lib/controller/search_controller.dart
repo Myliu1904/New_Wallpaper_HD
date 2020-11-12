@@ -11,10 +11,10 @@ class SearchController extends GetxController {
 
   TextEditingController searchController = TextEditingController();
 
-  Future searchWallPapers(String query) async {
+  Future searchWallPapers(String value) async {
     _searchWallpapers.clear();
     var response = await http
-        .get('https://api.pexels.com/v1/search?query=$query&per_page=200&page=1', headers: {
+        .get('https://api.pexels.com/v1/search?query=$value', headers: {
       'Authorization': Constants.API_KEY,
     });
     if (response.statusCode == 200) {
@@ -22,8 +22,8 @@ class SearchController extends GetxController {
       data['photos'].forEach((element) {
         _searchWallpapers.add(
           WallpaperModel(
-            largeUrl: element['src']['large'],
-            mediumUrl: element['src']['medium'],
+            largeUrl: element['src']['original'],
+            mediumUrl: element['src']['portrait'],
           ),
         );
       });

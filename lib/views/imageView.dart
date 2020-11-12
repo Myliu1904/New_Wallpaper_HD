@@ -1,14 +1,9 @@
-import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui';
-import 'package:dio/dio.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:WallpaperHD/controller/imageView_controller.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:get/get.dart';
 
 class ImageView extends StatelessWidget {
@@ -76,7 +71,6 @@ class ImageView extends StatelessWidget {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  save();
                                   if (kIsWeb) {
                                     _imageViewController.launchUrl(
                                         _imageViewController.imageUrl);
@@ -206,32 +200,5 @@ class ImageView extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  save() async {
-    if (Platform.isAndroid) {
-      await _askPermission();
-    }
-    var widget;
-    var response = await Dio()
-        .get(widget.imgUrl, options: Options(responseType: ResponseType.bytes));
-    final result = await ImageGallerySaver.saveImage(
-        Uint8List.fromList(response.data),
-        quality: 80);
-    print(result);
-  }
-}
-
-_askPermission() async {
-  if (Platform.isAndroid) {
-    await PermissionHandler().requestPermissions([PermissionGroup.photos]);
-  } else {
-    var status = (await PermissionHandler()
-        .checkPermissionStatus(PermissionGroup.storage));
-    if (status != PermissionStatus.granted) {
-      await PermissionHandler().requestPermissions([PermissionGroup.storage]);
-    } else if (status == PermissionStatus.neverAskAgain) {
-      await PermissionHandler().openAppSettings();
-    }
   }
 }
