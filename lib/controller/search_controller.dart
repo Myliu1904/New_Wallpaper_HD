@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:WallpaperHD/models/wallpaper_model.dart';
 import 'package:WallpaperHD/utils/constants.dart';
 
-class SearchController extends GetxController {
+class SearchController extends GetxController { 
   final List<WallpaperModel> _searchWallpapers = [];
   List<WallpaperModel> get searchWallpapers => _searchWallpapers;
 
